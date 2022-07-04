@@ -17,7 +17,9 @@ let shuffledQuestions, currentQuestionIndex
 var timerInterval
 var secondsLeft = 60
 var timeEl = document.getElementById('timer')
-
+var currentUser;
+var currentScore;
+var userName;
 var playerScore = {
     player: playersInitialsEl.values.trim,
     recentScore: score
@@ -81,12 +83,12 @@ const questions = [
     {
         question: 'What should you never do while playing D&D?',
         answers: [
-          { text: 'Cast "fireball"', correct: false },
-          { text: "Check for traps", correct: false },
-          { text: "Have fun", correct: false },
-          { text: "Split the party", correct: true}
+            { text: 'Cast "fireball"', correct: false },
+            { text: "Check for traps", correct: false },
+            { text: "Have fun", correct: false },
+            { text: "Split the party", correct: true }
         ]
-        },
+    },
 ]
 
 
@@ -98,7 +100,7 @@ function startGame() {
     timeEl.classList.remove("hide")
     timer()
     startBtn.classList.add('hide')
-    initialsEl.classList.add('hide')
+    // initialsEl.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerEl.classList.remove('hide')
@@ -122,7 +124,8 @@ function gameOver() {
     clearInterval(timerInterval)
     timeEl.classList.add('hide')
     questionContainerEl.classList.add('hide')
-    initialsEl.classList.remove("hide")
+    $('#initials').show()
+    // initialsEl.classList.remove("hide")
     startBtn.innerText = "Try Again?"
     startBtn.classList.remove("hide")
 }
@@ -175,19 +178,42 @@ function selectAnswer(j) {
     }
 }
 
-function highScoreMenu() {
-    localStorage.setItem("playerScore", JSON.stringify(playerScore));
-    var newEntry = JSON.parse(localstorage.getItem(playerScore))
-    var newEntry = document.createElement('li');
-    newEntry.appendChild(document.highScoreEl(playerScore));
-
-    document.querySelector('ul').appendChild(newEntry);
-
-    initialsEl.classList.add("hide")
-    highScoreEl.classList.remove("hide")
-}
+$('#initials').hide()
+$('#initials').keypress(function (event){
+    if (event.key === 'Enter') {
+        if (userName === ' ' || userName === null) {
+            window.alert('Please enter your initials. Press enter when finished.')
+        } else {
+            userName = (this).value;
+            localStorage.setItem('userName', userName);
+            localStorage.setItem('score', score);
+            
+            
+                // currentUser = localStorage.getItem('userName');
+                // currentScore = localStorage.getItem('score');
+            }
+        }
+    }
+)
+// at initials (script.js:181:38)
+// at gameOver (script.js:126:5)
+// at setNextQuestion (script.js:137:9)
+// at HTMLButtonElement.selectAnswer (script.js:175:9)
 
 startBtn.addEventListener('click', startGame);
-submitBtn.addEventListener('click', highScoreMenu)
 
+
+//     // localStorage.setItem("playerScore", JSON.stringify(playerScore));
+//     // var newEntry = JSON.parse(localstorage.getItem(playerScore))
+//     // var newEntry = document.createElement('li');
+    // newEntry.appendChild(document.highScoreEl(playerScore));
+
+    // document.querySelector('ul').appendChild(newEntry);
+
+    // initialsEl.classList.add("hide")
+    // highScoreEl.classList.remove("hide")
+// }
+
+
+// submitBtn.addEventListener('click', highScoreMenu) {var userName}
 
