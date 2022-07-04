@@ -80,7 +80,9 @@ align-items: center;
     color:#D14342;
   }
   
-  
+  #question {
+      font-size: larger;
+  }
   .start-btn, .next-btn {
     font-size: 3rem;
     font-weight:bold;
