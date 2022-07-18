@@ -1,4 +1,4 @@
-# <Dungeons & Dragons Trivia Quiz>
+# Dungeons & Dragons Trivia Quiz
 
 ## Description
 
